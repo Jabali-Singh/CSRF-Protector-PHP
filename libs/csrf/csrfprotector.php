@@ -302,8 +302,10 @@ if (!defined('__CSRF_PROTECTOR__')) {
 
                     // Clear all older tokens assuming they have been consumed
                     foreach ($_SESSION[self::$config['CSRFP_TOKEN']] as $_key => $_value) {
-                        if ($_value == $token) break;
-                        array_shift($_SESSION[self::$config['CSRFP_TOKEN']]);
+                        if ($_value == $token) {
+                            array_shift($_SESSION[self::$config['CSRFP_TOKEN']][$_key]);
+                            break;
+                        }
                     }
                     return true;
                 }
